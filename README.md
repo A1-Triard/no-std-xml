@@ -1,14 +1,14 @@
-# xml-no-std, an `xml-rs` fork for `no_std`
+# no-std-xml, an `xml-rs` fork for `no_std`
 
-[![crates.io][crates-io-img]](https://lib.rs/crates/xml-no-std)
-[![docs][docs-img]](https://docs.rs/xml-no-std/)
+[![crates.io][crates-io-img]](https://lib.rs/crates/no-std-xml)
+[![docs][docs-img]](https://docs.rs/no-std-xml/)
 
-[Documentation](https://docs.rs/xml-no-std/)
+[Documentation](https://docs.rs/no-std-xml/)
 
-[crates-io-img]: https://img.shields.io/crates/v/xml-no-std.svg
+[crates-io-img]: https://img.shields.io/crates/v/no-std-xml.svg
 [docs-img]: https://img.shields.io/badge/docs-latest%20release-6495ed.svg
 
-`xml-no-std` is a `no_std` fork of the popular XML library [`xml-rs`](https://github.com/kornelski/xml-rs)
+`no-std-xml` is a `no_std` fork of the popular XML library [`xml-rs`](https://github.com/kornelski/xml-rs)
 for the [Rust](https://www.rust-lang.org/) programming language. The crate sacrifices streaming capabilities 
 and performance for `no_std` compliance (`alloc` is still needed).
 
@@ -17,45 +17,37 @@ Thank you for the great work :green_heart:
 
 ### Motivation
 
-`xml-no-std` was created in order to support [XML encoding rules](https://www.itu.int/en/ITU-T/asn1/Pages/xer.aspx) 
+`no-std-xml` was created in order to support [XML encoding rules](https://www.itu.int/en/ITU-T/asn1/Pages/xer.aspx) 
 for the [`librasn` ASN.1 framework](https://github.com/librasn). From the various encoding rules for ASN.1, XML 
 encoding rules are usually not chosen for performance-critical use cases. Therefore, the performance losses are tolerable.
 
 ### Trade-offs
 
 In order to be compliant with [`no_std`](https://docs.rust-embedded.org/book/intro/no-std.html) environments, 
-`xml-no-std` operates on `Iterator<Item = &u8>` for reading and `alloc::string::String` for writing instead of
+`no-std-xml` operates on `Iterator<Item = &u8>` for reading and `alloc::string::String` for writing instead of
 `std::io::Read` and `std::io::Write`.
 Stream reading is therefore not supported.
 
-As far as performance is concerned, the changes `xml-no-std` makes hit hard when XML documents with 
-many attributes in its elements are read. `xml-no-std` uses a `alloc::collections::BTreeSet` for 
+As far as performance is concerned, the changes `no-std-xml` makes hit hard when XML documents with 
+many attributes in its elements are read. `no-std-xml` uses a `alloc::collections::BTreeSet` for 
 storing XML Attributes, which is suboptimal for elements with many attributes. There's definitely
 room for improvement here, so contributions are very welcome.
 
-Some ballpark figures from my own dev machine:
-
-| Bench          | `xml-rs`                    | `xml-no-std`                    |
-| -------------- | --------------------------- | ------------------------------- |
-| read           | 43,255 ns/iter (+/- 1,498)  | 57,263 ns/iter (+/- 1,121)      |
-| read_lots_attr | 426,440 ns/iter (+/- 3,932) | 6,122,947 ns/iter (+/- 609,079) |
-| write          | 7,405 ns/iter (+/- 31)      | 17,303 ns/iter (+/- 134)        |
-
 ## Building and using
 
-xml-no-std uses [Cargo](https://crates.io), so add it with `cargo add xml-no-std` or modify `Cargo.toml`:
+no-std-xml uses [Cargo](https://crates.io), so add it with `cargo add no-std-xml` or modify `Cargo.toml`:
 
 ```toml
 [dependencies]
-xml-no-std = "0.8.16"
+no-std-xml = "0.8.16"
 ```
 
-The package exposes a single crate called `xml-no-std`.
+The package exposes a single crate called `no-std-xml`.
 
 ## Reading XML documents
 
 [`xml::reader::EventReader`](EventReader) requires an [`Iterator`](https://doc.rust-lang.org/core/iter/trait.Iterator.html) 
-over `&u8` items to read from. 
+over `u8` items to read from. 
 
 [EventReader]: https://docs.rs/xml-rs/latest/xml/reader/struct.EventReader.html
 
@@ -196,5 +188,4 @@ information.
 
 ## Bug reports
 
-Please report issues concerning core XML reading and writing at: <https://github.com/kornelski/xml-rs/issues>.
-Please report issues concerning the no-std fork at: <https://github.com/6d7a/xml-no-std/issues>.
+Please report issues at: <https://github.com/A1-Triard/no-std-xml/issues>.

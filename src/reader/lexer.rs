@@ -287,7 +287,7 @@ impl Lexer {
     /// * `Err(reason) where reason: reader::Error` - when an error occurs;
     /// * `Ok(None)` - upon end of stream is reached;
     /// * `Ok(Some(token)) where token: Token` - in case a complete-token has been read from the stream.
-    pub fn next_token<'a, S: Iterator<Item = &'a u8>>(&mut self, b: &mut S) -> Result {
+    pub fn next_token<S: Iterator<Item=u8>>(&mut self, b: &mut S) -> Result {
         // Already reached end of buffer
         if self.eof_handled {
             return Ok(None);

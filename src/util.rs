@@ -105,14 +105,14 @@ impl CharReader {
         }
     }
 
-    pub fn next_char_from<'a, S: Iterator<Item = &'a u8>>(&mut self, source: &mut S) -> Result<Option<char>, CharReadError> {
+    pub fn next_char_from<S: Iterator<Item=u8>>(&mut self, source: &mut S) -> Result<Option<char>, CharReadError> {
         const MAX_CODEPOINT_LEN: usize = 4;
 
         let mut buf = [0u8; MAX_CODEPOINT_LEN];
         let mut pos = 0;
         loop {
             let next = match source.next() {
-                Some(b) => *b,
+                Some(b) => b,
                 None if pos == 0 => return Ok(None),
                 None => return Err(CharReadError::UnexpectedEof),
             };

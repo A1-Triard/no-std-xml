@@ -147,7 +147,7 @@ impl ParserConfig {
     /// This method is exactly equivalent to calling `EventReader::new_with_config()` with
     /// this configuration object.
     #[inline]
-    pub fn create_reader<'a, S: Iterator<Item = &'a u8>>(self, source: S) -> EventReader<'a, S> {
+    pub fn create_reader<S: Iterator<Item=u8>>(self, source: S) -> EventReader<S> {
         EventReader::new_with_config(source, self)
     }
 
@@ -286,7 +286,7 @@ impl ParserConfig2 {
     /// This method is exactly equivalent to calling `EventReader::new_with_config()` with
     /// this configuration object.
     #[inline]
-    pub fn create_reader<'a, S: Iterator<Item = &'a u8>>(self, source: S) -> EventReader<'a, S> {
+    pub fn create_reader<S: Iterator<Item=u8>>(self, source: S) -> EventReader<S> {
         EventReader::new_with_config(source, self)
     }
 }

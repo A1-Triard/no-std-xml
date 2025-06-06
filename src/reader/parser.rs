@@ -317,7 +317,7 @@ impl PullParser {
     ///
     /// This method should be always called with the same buffer. If you call it
     /// providing different buffers each time, the result will be undefined.
-    pub fn next<'a, S: Iterator<Item = &'a u8>>(&mut self, r: &mut S) -> Result {
+    pub fn next<S: Iterator<Item=u8>>(&mut self, r: &mut S) -> Result {
         if let Some(ref ev) = self.final_result {
             return ev.clone();
         }

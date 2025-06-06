@@ -1,7 +1,6 @@
 extern crate alloc;
 
 use core::fmt;
-use core::fmt::Write;
 use core::result;
 
 use alloc::string::String;
@@ -376,7 +375,7 @@ impl Emitter {
     }
 
     pub fn emit_characters(&mut self, target: &mut String, content: &str) {
-        self.check_document_started(target);
+        self.check_document_started(target).unwrap();
         self.fix_non_empty_element(target);
 
         if self.config.perform_escaping {

@@ -1,5 +1,5 @@
 [package]
-name = "xml-no-std"
+name = "no-std-xml"
 version = "0.8.20"
 authors = ["Vladimir Matveev <vmatveev@citrine.cc>"]
 license = "MIT"
@@ -14,17 +14,5 @@ edition = "2021"
 rust-version = "1.58"
 include = ["src/**", "LICENSE", "README.md"]
 
-[lib]
-name = "xml_no_std"
-path = "src/lib.rs"
-
 [badges]
 maintenance = { status = "actively-developed" }
-
-[package.metadata.docs.rs]
-targets = ["x86_64-unknown-linux-gnu"]
-rustdoc-args = ["--generate-link-to-definition"]
-
-[package.metadata.release]
-tag-name = "{{version}}"
-tag-message = ""
